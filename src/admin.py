@@ -6,6 +6,7 @@ from itertools import chain
 import subprocess
 import datetime as dt
 from datetime import datetime as dt2
+from Crypto.Cipher import AES
 
 #this is an administrative source file
 #it holds code used in most, if not all, of my other work-related projects
@@ -42,6 +43,21 @@ def combine_dict(dict1,dict2):
     bigdict.update(notindother)
     bigdict.update(inboth)
     return(bigdict)
+
+def decrypt(obj,passw,length):
+    key=passw[:length].encode("utf-8")
+    iv = bytes(length)    
+    cipher=AES.new(key,AES.MODE_CFB,iv)
+    obj1=cipher.decrypt(obj)
+    obj1=obj1.decode('utf-8')
+    return(obj1)
+
+def encrypt(obj,passw,length):
+    key=passw[:length].encode("utf-8")
+    iv = bytes(length)    
+    cipher=AES.new(key,AES.MODE_CFB,iv)
+    obj1=cipher.encrypt(obj.encode("utf-8"))
+    return(obj1)
 
 def flat_list(nestedlists:list) ->list:  #function to flatten lists
     return(chain(*nestedlists))
