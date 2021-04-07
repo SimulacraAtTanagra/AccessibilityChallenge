@@ -14,6 +14,7 @@ from time import sleep
 def main():
     passcode=input("Please enter your last name, as it appears on linkedin, to begin.\n")
     print(decrypt(ast.literal_eval(read_json(os.path.join(os.getcwd(),'begin.json'))),passcode.upper()*3,16))
+    sleep(20)
     while True:
         if gameloop():
             break
